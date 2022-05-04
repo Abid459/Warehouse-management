@@ -42,6 +42,13 @@ async function run(){
             const products = await cursor.toArray();
             res.send(products);
         })
+
+        //count products
+        app.get('/countProducts',async(req,res)=>{
+            const count = await productsCollection.countDocuments();
+            // const count = await productsCollection.countDocuments();
+            res.send({count})
+        })
     }
     catch(error){
         console.log(error)
