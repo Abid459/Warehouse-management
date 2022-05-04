@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors');
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config();
 
 const app = express()
@@ -66,6 +66,18 @@ async function run(){
             const lowStock = await cursor.toArray();
             res.send(lowStock)
         })
+
+
+        // delete product
+        app.delete('/product/:id',async(req,res)=>{
+            const id = req.params.id;
+            const query = {_id:ObjectId(id)}
+            const result = productsCollection.deleteOne(query)
+            res.send(result);
+        })
+
+        
+
     }
     catch(error){
         console.log(error)
