@@ -56,6 +56,16 @@ async function run(){
             const price = await productsCollection.distinct('price',{})
             res.send(price)
         })
+
+
+
+        //Low stock products
+        app.get('/lowStock',async(req,res)=>{
+            const query = { quantity : { $lt: 10  } };
+            const cursor = productsCollection.find(query)
+            const lowStock = await cursor.toArray();
+            res.send(lowStock)
+        })
     }
     catch(error){
         console.log(error)
