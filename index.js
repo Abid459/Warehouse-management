@@ -49,6 +49,13 @@ async function run(){
             // const count = await productsCollection.countDocuments();
             res.send({count})
         })
+
+
+        //get price of all products
+        app.get('/allPrice',async(req,res)=>{
+            const price = await productsCollection.distinct('price',{})
+            res.send(price)
+        })
     }
     catch(error){
         console.log(error)
